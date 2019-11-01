@@ -8,6 +8,7 @@ using SDG.Unturned;
 using System;
 using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
+using Rocket.API;
 
 namespace RestoreMonarchy.RPLicenses
 {
@@ -43,16 +44,17 @@ namespace RestoreMonarchy.RPLicenses
 
         private void OnEquipRequested(PlayerEquipment equipment, ItemJar jar, ItemAsset asset, ref bool shouldAllow)
         {
-            if (asset.type == EItemType.GUN && equipment.player.inventory.has(Configuration.Instance.GunLicenseID) == null)
+            UnturnedPlayer player = UnturnedPlayer.FromPlayer(equipment.player);
+            if (asset.type == EItemType.GUN && !this.CanPlayerEquipGun(player))
             {
                 shouldAllow = false;
-                UnturnedChat.Say(equipment.player.channel.owner.playerID.steamID, Translate("RequireGunLicense"), MessageColor);
+                UnturnedChat.Say(player, Translate("RequireGunLicense"), MessageColor);
             }
         }
 
         private void OnPlayerUpdateStance(UnturnedPlayer player, byte stance)
         {
-            if (stance == (byte)EPlayerStance.DRIVING && player.Inventory.has(Configuration.Instance.VehicleLicenseID) == null)
+            if (stance == (byte)EPlayerStance.DRIVING && !this.CanPlayerDrive(player))
             {
                 if (player.CurrentVehicle.tryRemovePlayer(out byte seat, player.CSteamID, out Vector3 vector, out byte angle))
                 {
@@ -79,8 +81,8 @@ namespace RestoreMonarchy.RPLicenses
 
         public override TranslationList DefaultTranslations => new TranslationList()
         {
-            { "RequireDriveLicense", "You must have a license with you to drive vehicle!" },
-            { "RequireGunLicense", "You must have a license with you to equip gun!" }
+            { "RequireDriveLicense", "You must have a driving license to drive vehicle!" },
+            { "RequireGunLicense", "You must have a gun license to carry gun!" }
         };
     }
 }
