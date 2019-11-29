@@ -1,3 +1,4 @@
+[![Version](https://img.shields.io/github/release/RestoreMonarchyPlugins/RPLicenses.svg)](https://github.com/RestoreMonarchyPlugins/RPLicenses/releases) [![Discord](https://discordapp.com/api/guilds/520355060312440853/widget.png)](https://restoremonarchy.com/discord)
 # RPLicenses
 Simple Vehicle & Gun license plugin for Unturned RP servers.  
 Based on DiagonalRPLicenses, but created from scratch.
