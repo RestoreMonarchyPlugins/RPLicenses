@@ -1,6 +1,6 @@
 # RPLicenses
 Simple Vehicle & Gun license plugin for Unturned RP servers.  
-Based on [DiagonalRPLicenses](https://harbor.rocketmod.net/plugins/diagonalrplicenses/), but created from scratch.
+Based on DiagonalRPLicenses, but created from scratch.
 
 ### Features
 * Allows you to require your players to have license for actions, in current version it is driving and carrying guns.
