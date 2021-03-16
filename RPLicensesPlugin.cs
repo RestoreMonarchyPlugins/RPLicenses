@@ -21,7 +21,8 @@ namespace RestoreMonarchy.RPLicenses
             
             if (Configuration.Instance.VehicleLicenseEnabled)
             {
-                UnturnedPlayerEvents.OnPlayerUpdateStance += OnPlayerUpdateStance;
+                VehicleManager.onEnterVehicleRequested += OnEnterVehicleRequested;
+                VehicleManager.onSwapSeatRequested += OnSwapSeatRequested;
             }            
             if (Configuration.Instance.GunLicenseEnabled)
             {
@@ -52,29 +53,34 @@ namespace RestoreMonarchy.RPLicenses
             }
         }
 
-        private void OnPlayerUpdateStance(UnturnedPlayer player, byte stance)
+        private void OnEnterVehicleRequested(Player player, InteractableVehicle vehicle, ref bool shouldAllow)
         {
-            if (stance == (byte)EPlayerStance.DRIVING && !this.CanPlayerDrive(player))
+            if (vehicle.tryAddPlayer(out byte seat, player) && seat == 0)
             {
-                if (player.CurrentVehicle.tryRemovePlayer(out byte seat, player.CSteamID, out Vector3 vector, out byte angle))
-                {
-                    VehicleManager.sendExitVehicle(player.CurrentVehicle, seat, vector, angle, false);
-                    UnturnedChat.Say(player, Translate("RequireDriveLicense"), MessageColor);
-                }
+                var untPlayer = UnturnedPlayer.FromPlayer(player);
+                shouldAllow = this.CanPlayerDrive(untPlayer);
+                if (!shouldAllow)
+                    UnturnedChat.Say(untPlayer, Translate("RequireDriveLicense"), MessageColor);
             }
+        }
+
+        private void OnSwapSeatRequested(Player player, InteractableVehicle vehicle, ref bool shouldAllow, byte fromSeatIndex, ref byte toSeatIndex)
+        {
+            if (toSeatIndex == 0)
+            {
+                var untPlayer = UnturnedPlayer.FromPlayer(player);
+                shouldAllow = this.CanPlayerDrive(untPlayer);
+                if (!shouldAllow)
+                    UnturnedChat.Say(untPlayer, Translate("RequireDriveLicense"), MessageColor);
+            }            
         }
 
         protected override void Unload()
         {
-            if (Configuration.Instance.VehicleLicenseEnabled)
-            {
-                UnturnedPlayerEvents.OnPlayerUpdateStance -= OnPlayerUpdateStance;
-            }            
-            if (Configuration.Instance.GunLicenseEnabled)
-            {
-                U.Events.OnPlayerConnected -= OnPlayerConnected;
-                U.Events.OnPlayerDisconnected -= OnPlayerDisconnected;
-            }
+            VehicleManager.onEnterVehicleRequested -= OnEnterVehicleRequested;
+            VehicleManager.onSwapSeatRequested -= OnSwapSeatRequested;
+            U.Events.OnPlayerConnected -= OnPlayerConnected;
+            U.Events.OnPlayerDisconnected -= OnPlayerDisconnected;
 
             Logger.Log($"{Name} has been unloaded!", ConsoleColor.Yellow);
         }
