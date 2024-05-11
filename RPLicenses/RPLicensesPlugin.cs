@@ -2,13 +2,11 @@
 using Rocket.Core.Plugins;
 using Rocket.Unturned;
 using Rocket.Unturned.Chat;
-using Rocket.Unturned.Events;
 using Rocket.Unturned.Player;
 using SDG.Unturned;
 using System;
 using UnityEngine;
 using Logger = Rocket.Core.Logging.Logger;
-using Rocket.API;
 
 namespace RestoreMonarchy.RPLicenses
 {

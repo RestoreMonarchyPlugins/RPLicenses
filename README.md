@@ -1,18 +1,10 @@
-[![Version](https://img.shields.io/github/release/RestoreMonarchyPlugins/RPLicenses.svg)](https://github.com/RestoreMonarchyPlugins/RPLicenses/releases) [![Discord](https://discordapp.com/api/guilds/520355060312440853/widget.png)](https://restoremonarchy.com/discord)
 # RPLicenses
-Simple Vehicle & Gun license plugin for Unturned RP servers.  
-Based on DiagonalRPLicenses, but created from scratch.
+Simple vehicle & gun license plugin for Roleplay servers.
 
-### Features
-* Allows you to require your players to have license for actions, in current version it is driving and carrying guns.
-* You may want to limit license requirements only to specific action in `VehicleLicenseEnabled` or `GunLicenseEnabled` parameter.
-* Rocket permissions can bypass requirement to have a license in your inventory. So for example if you give `license.gun` to 
-a given group in `Permissions.config.xml` then for this group license is not required.  
-* You can change items required for licenses and permission names.
-* You can set custom color of the messages sent within translations.
+## Workshop (optional)
+[2350128257](https://steamcommunity.com/sharedfiles/filedetails/?id=2350128257) - Game4Freak's RP Licenses
 
-
-### Default Configuration
+## Configuration
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RPLicensesConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -26,7 +18,7 @@ a given group in `Permissions.config.xml` then for this group license is not req
 </RPLicensesConfiguration>
 ```
 
-### Default Translations
+## Translations
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <Translations xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">

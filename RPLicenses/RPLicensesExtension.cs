@@ -1,6 +1,5 @@
 ﻿using Rocket.API;
 using Rocket.Unturned.Player;
-using SDG.Unturned;
 
 namespace RestoreMonarchy.RPLicenses
 {
